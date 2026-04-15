@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Limits Explorer", layout="centered")
 
 # Title
-st.title("📘 Limits & Continuity Explorer")
+st.title("📘 Limits Explorer")
 st.write("Learn limits step-by-step, visualize graphs, and understand function behavior.")
 
 # Input
@@ -24,7 +24,6 @@ try:
     left_limit = sp.limit(expr, x, a, '-')
     right_limit = sp.limit(expr, x, a, '+')
     general_limit = sp.limit(expr, x, a)
-    func_value = expr.subs(x, a)
 
     # ── SECTION 1 ──────────────────────────────────────────
     st.header("1️⃣ The Function f(x)")
@@ -77,16 +76,8 @@ try:
     st.markdown("- **δ (delta)** represents how close x must be to *a*.")
     st.markdown("- If we can always find such a δ for every ε, the **limit exists**.")
 
-    # ── CONTINUITY CHECK ───────────────────────────────────
-    st.header("5️⃣ Continuity Check")
-    st.write(f"f({a}) = {func_value}")
-    if func_value == general_limit and left_limit == right_limit:
-        st.success("✅ The function is CONTINUOUS at this point!")
-    else:
-        st.warning("⚠️ The function is DISCONTINUOUS at this point.")
-
     # ── GRAPH ──────────────────────────────────────────────
-    st.header("6️⃣ Graph")
+    st.header("5️⃣ Graph")
     f_lambdified = sp.lambdify(x, expr, 'numpy')
     x_vals = np.linspace(float(a) - 5, float(a) + 5, 400)
     with np.errstate(divide='ignore', invalid='ignore'):
